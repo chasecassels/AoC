@@ -1,6 +1,6 @@
 def main():
 
-    file = 'testinput.txt'
+    file = 'aoc1-input.txt'
 
     pos = 50 
     ans1 = 0
@@ -23,21 +23,24 @@ def main():
     #compute part 2 answer
     for move in moves:
         if move[0] == 'L':
-            if pos != 0 and pos - int(move[1:]) < 0:  
+            if pos - int(move[1:]) < 0:  
                 #subtract because the integer division is negative 
                 ans2 -= (pos - int(move[1:])) // 100
+                if pos == 0:
+                    ans2 -= 1
             pos = (pos - int(move[1:])) % 100
         else: # move[0] == 'R'
-            if pos + int(move[1:]) > 100:
+            if pos + int(move[1:]) >= 100:
                 ans2 += (pos + int(move[1:])) // 100
             pos = (pos + int(move[1:])) % 100
+            if pos == 0:
+                ans2 -= 1
         if pos == 0:
             ans2 += 1
 
-        print(pos)
+        print(f"move: {move} | new position: {pos} | 0 count: {ans2}")
 
     print(ans2)
-
 
     
 if __name__ == "__main__":
